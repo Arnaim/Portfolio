@@ -37,8 +37,12 @@ class ProjectsSection extends StatelessWidget {
                   .collection('projects')
                   .orderBy('createdAt', descending: true) // newest first
                   .snapshots(),
-
+              
               builder: (context, snapshot) {
+                print('Firestore stream status: ${snapshot.connectionState}');
+                print('Has data: ${snapshot.hasData}');
+                print('Error: ${snapshot.error}');
+                print('Number of docs: ${snapshot.data?.docs.length ?? 0}');
                 // Loading state
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
