@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:protfolio/widgets/ProjectCard.dart';
 
@@ -28,31 +29,63 @@ class ProjectsSection extends StatelessWidget {
         LayoutBuilder(
           builder: (context, constraints) {
             int crossAxisCount = 1;
-            if (constraints.maxWidth > 900) {
-              crossAxisCount = 3;
-            } else if (constraints.maxWidth > 600) {
-              crossAxisCount = 2;
-            }
+            if (constraints.maxWidth > 900) crossAxisCount = 3;
+            else if (constraints.maxWidth > 600) crossAxisCount = 2;
 
-            return GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                crossAxisSpacing: 24,
-                mainAxisSpacing: 24,
-                childAspectRatio: 1.4,
-              ),
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return buildProjectCard(index);
+            return StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('projects')
+                  .orderBy('createdAt', descending: true) // newest first
+                  .snapshots(),
+
+              builder: (context, snapshot) {
+                // Loading state
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                // Error state
+                if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
+
+                final projects = snapshot.data?.docs ?? [];
+
+                // Empty state
+                if (projects.isEmpty) {
+                  return const Center(child: Text('No projects added yet'));
+                }
+
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 24,
+                    mainAxisSpacing: 24,
+                    childAspectRatio: 1.4,
+                  ),
+                  itemCount: projects.length,
+                  itemBuilder: (context, index) {
+                    final doc = projects[index];
+                    final data = doc.data() as Map<String, dynamic>;
+
+                    return buildProjectCard(
+                      index,
+                      title: data['title'] as String? ?? 'Untitled Project',
+                      description: data['description'] as String? ?? 'No description',
+                      imageUrl: data['imageUrl'] as String? ?? '',
+                      githubUrl: data['githubUrl'] as String? ?? '',
+                    );
+                  },
+                );
               },
             );
           },
-        ),
-            ],
-          ),
-        ),
-    );
-  }
+        )
+       ],
+     ),
+    ),
+  );
+ }
 }

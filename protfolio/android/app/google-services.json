@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "703179355509",
+    "project_id": "arnab-portfolio-844d1",
+    "storage_bucket": "arnab-portfolio-844d1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703179355509:android:d0ecf850c8611a90360f3c",
+        "android_client_info": {
+          "package_name": "com.example.protfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK7fos3JaDDR0NPfgNj0-v9cgBhTZTVa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

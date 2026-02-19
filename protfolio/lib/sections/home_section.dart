@@ -160,7 +160,7 @@ class HomeSection extends StatelessWidget {
                       crossAxisSpacing: 24,
                       childAspectRatio: 1.4,
                       children: List.generate(3, (index) {
-                        return buildProjectCard(index);
+                        return buildProjectCard(index, title: '', description: '', imageUrl: '', githubUrl: '');
                       }),
                     );
                   },
