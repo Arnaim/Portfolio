@@ -79,7 +79,7 @@ class ProjectsSection extends StatelessWidget {
                       title: data['title'] as String? ?? 'Untitled Project',
                       description: data['description'] as String? ?? 'No description',
                       imageUrl: data['imageUrl'] as String? ?? '',
-                      githubUrl: data['githubUrl'] as String? ?? '',
+                      githubUrl: data['githhubUrl'] as String? ?? '',
                     );
                   },
                 );

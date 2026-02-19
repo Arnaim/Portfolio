@@ -1,4 +1,4 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:protfolio/core/constants.dart';
 
 Widget buildProjectCard(int index, {
