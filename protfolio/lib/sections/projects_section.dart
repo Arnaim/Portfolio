@@ -34,7 +34,7 @@ class ProjectsSection extends StatelessWidget {
 
             return StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection('Projects')
+                  .collection('projects')
                   .orderBy('createdAt', descending: true) // newest first
                   .snapshots(),
 
