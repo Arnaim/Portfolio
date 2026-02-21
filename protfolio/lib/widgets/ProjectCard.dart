@@ -84,7 +84,6 @@ Widget buildProjectCard(int index, {
               const SizedBox(height: 12),
 
               // Creation date
-              if (formattedDate.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Row(
@@ -103,7 +102,6 @@ Widget buildProjectCard(int index, {
                 ),
 
               // GitHub button
-             if (githubUrl.isNotEmpty)
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton.icon(
