@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:protfolio/core/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // for Timestamp
 
 Widget buildProjectCard(int index, {
   required String title,
   required String description,
   required String imageUrl,
   required String githubUrl,
+  Timestamp? createdAt, // ← new: pass from Firestore
 }) {
+  // Format date if exists
+  String formattedDate = '';
+  if (createdAt != null) {
+    final date = createdAt.toDate();
+    formattedDate = '${date.day}/${date.month}/${date.year}';
+  }
+
   return Card(
     color: AppConstants.tertiaryColor,
     elevation: 4,
@@ -18,16 +27,20 @@ Widget buildProjectCard(int index, {
       children: [
         // Image (top part)
         Expanded(
-          flex: 5,
+          flex: 5, // 60% height for image
           child: imageUrl.isNotEmpty
               ? Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    color: AppConstants.surfaceColor,
-                    child: const Center(child: Icon(Icons.broken_image, size: 48, color: Colors.grey)),
-                  ),
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: AppConstants.surfaceColor,
+                      child: const Center(
+                        child: Icon(Icons.broken_image, size: 48, color: Colors.grey),
+                      ),
+                    );
+                  },
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
                     return const Center(child: CircularProgressIndicator());
@@ -35,7 +48,9 @@ Widget buildProjectCard(int index, {
                 )
               : Container(
                   color: AppConstants.surfaceColor,
-                  child: const Center(child: Icon(Icons.image, size: 64, color: Colors.grey)),
+                  child: const Center(
+                    child: Icon(Icons.image, size: 64, color: Colors.grey),
+                  ),
                 ),
         ),
 
@@ -68,8 +83,25 @@ Widget buildProjectCard(int index, {
               ),
               const SizedBox(height: 12),
 
-              // GitHub button (only show if URL exists)
-              if (githubUrl.isNotEmpty)
+              // Creation date
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: [
+                      Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Created: $formattedDate',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+              // GitHub button
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton.icon(
@@ -85,7 +117,6 @@ Widget buildProjectCard(int index, {
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: AppConstants.primaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     ),
                   ),
                 ),
