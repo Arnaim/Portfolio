@@ -103,7 +103,7 @@ Widget buildProjectCard(int index, {
                 ),
 
               // GitHub button
-             // if (githubUrl.isNotEmpty)
+             if (githubUrl.isNotEmpty)
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton.icon(
