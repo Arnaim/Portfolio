@@ -84,22 +84,22 @@ Widget buildProjectCard(int index, {
               const SizedBox(height: 12),
 
               // Creation date
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Row(
-                    children: [
-                      Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Created: $formattedDate',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 12),
+                //   child: Row(
+                //     children: [
+                //       Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                //       const SizedBox(width: 6),
+                //       Text(
+                //         'Created: $formattedDate',
+                //         style: TextStyle(
+                //           fontSize: 13,
+                //           color: Colors.grey[600],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
               // GitHub button
                 Align(
