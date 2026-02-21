@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:protfolio/widgets/ProjectCard.dart';
@@ -139,32 +140,71 @@ class HomeSection extends StatelessWidget {
           const SizedBox(height: 48),
 
                const SkillsSection(),
-                Text(
-                  'Recent Projects',
-                  style: TextStyle(
-                    fontSize: isDesktop ? 36 : 28,
-                    fontWeight: FontWeight.w700,
-                    color: AppConstants.textSecondary,
-                  ),
-                ),
-                const SizedBox(height: 24),
+Text(
+  'Recent Projects',
+  style: TextStyle(
+    fontSize: isDesktop ? 36 : 28,
+    fontWeight: FontWeight.w700,
+    color: AppConstants.textSecondary,
+  ),
+),
+const SizedBox(height: 24),
 
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    int crossCount = isDesktop ? 3 : (constraints.maxWidth > 600 ? 2 : 1);
-                    return GridView.count(
-                      crossAxisCount: crossCount,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24,
-                      childAspectRatio: 1.4,
-                      children: List.generate(3, (index) {
-                        return buildProjectCard(index, title: '', description: '', imageUrl: '', githubUrl: '');
-                      }),
-                    );
-                  },
-                ),
+// Fetch only 3 newest projects from Firestore
+StreamBuilder<QuerySnapshot>(
+  stream: FirebaseFirestore.instance
+      .collection('projects')
+      .limit(3) // only top 3
+      .snapshots(),
+  builder: (context, snapshot) {
+    // Loading spinner
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    // Error message
+    if (snapshot.hasError) {
+      return const Center(child: Text('Error loading recent projects'));
+    }
+
+    final docs = snapshot.data?.docs ?? [];
+
+    // Empty state
+    if (docs.isEmpty) {
+      return const Center(child: Text('No recent projects yet'));
+    }
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int crossCount = isDesktop ? 3 : (constraints.maxWidth > 600 ? 2 : 1);
+
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossCount,
+            mainAxisSpacing: 24,
+            crossAxisSpacing: 24,
+            childAspectRatio: 1.4,
+          ),
+          itemCount: docs.length, // dynamic from Firestore
+          itemBuilder: (context, index) {
+            final doc = docs[index];
+            final data = doc.data() as Map<String, dynamic>;
+
+            return buildProjectCard(
+              index,
+              title: data['title'] as String? ?? 'Untitled Project',
+              description: data['description'] as String? ?? 'No description',
+              imageUrl: data['imageUrl'] as String? ?? '',
+              githubUrl: data['githubUrl'] as String? ?? '',
+            );
+          },
+        );
+      },
+    );
+  },
+),
 
                 const SizedBox(height: 64),
 
