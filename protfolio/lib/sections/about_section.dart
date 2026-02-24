@@ -16,9 +16,8 @@ class AboutSection extends StatelessWidget {
 
           CircleAvatar(
             radius: 80,
-            backgroundImage: NetworkImage(
-              'assets/images/profile.jpg',
-            ),
+            backgroundImage: const AssetImage('assets/images/profile.png'),
+            backgroundColor: Colors.grey[300], 
           ),
 
           const SizedBox(height: 16),
