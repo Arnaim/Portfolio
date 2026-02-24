@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../layouts/main_layout.dart';
 import '../core/constants.dart'; 
 
 class AboutSection extends StatelessWidget {

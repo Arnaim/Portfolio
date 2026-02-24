@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protfolio/core/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // for Timestamp
+import 'package:cloud_firestore/cloud_firestore.dart'; 
 
 Widget buildProjectCard(int index, {
   required String title,
@@ -11,10 +11,8 @@ Widget buildProjectCard(int index, {
   Timestamp? createdAt, // ← new: pass from Firestore
 }) {
   // Format date if exists
-  String formattedDate = '';
   if (createdAt != null) {
-    final date = createdAt.toDate();
-    formattedDate = '${date.day}/${date.month}/${date.year}';
+    createdAt.toDate();
   }
 
   return Card(
