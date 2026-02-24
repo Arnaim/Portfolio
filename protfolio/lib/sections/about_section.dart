@@ -98,7 +98,7 @@ class AboutSection extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               onPressed: () async {
-                final Uri url = Uri.base.resolve('assets/pdf/Naimur_Rahman_Resume.pdf');
+                final Uri url = Uri.base.resolve('assets/pdf/Naimur_Rahman_Arnab_CV.pdf');
 
                 await launchUrl(
                   url,
