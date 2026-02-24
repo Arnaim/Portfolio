@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../layouts/main_layout.dart';
-import '../core/constants.dart'; // Make sure you import AppConstants
+import '../core/constants.dart'; 
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -17,7 +17,7 @@ class AboutSection extends StatelessWidget {
           CircleAvatar(
             radius: 80,
             backgroundImage: NetworkImage(
-              'https://media.licdn.com/media/AAYQAQSOAAgAAQAAAAAAAB-zrMZEDXI2T62PSuT6kpB6qg.png',
+              'assets/images/profile.jpg',
             ),
           ),
 
