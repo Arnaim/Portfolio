@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protfolio/widgets/DirectContact.dart';
 import '../core/constants.dart'; 
+import 'package:cloud_firestore/cloud_firestore.dart'; 
 
 class ContactSection extends StatefulWidget {
   const ContactSection({super.key});
@@ -25,27 +26,39 @@ class _ContactSectionState extends State<ContactSection> {
     super.dispose();
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Here you would normally send the data somewhere
-      // (Firebase, email service, backend, etc.)
+// add this import
+
+void _submitForm() async {
+  if (_formKey.currentState!.validate()) {
+    try {
+      await FirebaseFirestore.instance.collection('messages').add({
+        'name': _nameController.text.trim(),
+        'email': _emailController.text.trim(),
+        'message': _messageController.text.trim(),
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
       setState(() {
         _messageSent = true;
+        _nameController.clear();
+        _emailController.clear();
+        _messageController.clear();
       });
 
-      // Optional: clear form
-      _nameController.clear();
-      _emailController.clear();
-      _messageController.clear();
-
-      // Optional: hide success message after 5 seconds
       Future.delayed(const Duration(seconds: 5), () {
-        if (mounted) {
-          setState(() => _messageSent = false);
-        }
+        if (mounted) setState(() => _messageSent = false);
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Message sent! I\'ll get back to you soon.')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to send: $e')),
+      );
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {
