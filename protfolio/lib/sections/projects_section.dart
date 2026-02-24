@@ -29,8 +29,9 @@ class ProjectsSection extends StatelessWidget {
         LayoutBuilder(
           builder: (context, constraints) {
             int crossAxisCount = 1;
-            if (constraints.maxWidth > 900) crossAxisCount = 3;
-            else if (constraints.maxWidth > 600) crossAxisCount = 2;
+            if (constraints.maxWidth > 900) {
+              crossAxisCount = 3;
+            } else if (constraints.maxWidth > 600) crossAxisCount = 2;
 
             return StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance

@@ -53,13 +53,13 @@ Widget _buildContactItem({
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       alignment: Alignment.centerLeft,
     ).copyWith(
-      foregroundColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.hovered)) {
+      foregroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
           return AppConstants.primaryColor;
         }
         return AppConstants.textPrimary;
       }),
-      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,

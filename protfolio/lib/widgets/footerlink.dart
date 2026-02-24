@@ -26,16 +26,16 @@ class FooterLink extends StatelessWidget {
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ).copyWith(
-        foregroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.hovered)) {
+        foregroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.hovered)) {
             return AppConstants.primaryColor; 
           }
           return AppConstants.textPrimary; 
         }),
-        overlayColor: MaterialStateProperty.all(
+        overlayColor: WidgetStateProperty.all(
           Colors.transparent, 
         ),
-        textStyle: MaterialStateProperty.all(
+        textStyle: WidgetStateProperty.all(
           const TextStyle(
             fontSize: 16,
             decoration: TextDecoration.none, 
