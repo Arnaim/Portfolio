@@ -14,10 +14,19 @@ class AboutSection extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
 
-          CircleAvatar(
-            radius: 80,
-            backgroundImage: const AssetImage('assets/images/profile.jpeg'),
-            backgroundColor: Colors.grey[300], 
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: AppConstants.primaryColor,
+                width: 3,
+              ),
+            ),
+            child: CircleAvatar(
+              radius: 80,
+              backgroundImage: const AssetImage('assets/images/profile.jpeg'),
+              backgroundColor: Colors.grey[300], 
+            ),
           ),
 
           const SizedBox(height: 16),
