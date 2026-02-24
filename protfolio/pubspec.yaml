@@ -31,6 +31,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/profile.jpeg
-
+    - assets/pdf/Naimur_Rahman_Resume.pdf
   uses-material-design: true
 
