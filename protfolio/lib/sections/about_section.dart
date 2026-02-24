@@ -17,7 +17,7 @@ class AboutSection extends StatelessWidget {
           CircleAvatar(
             radius: 80,
             backgroundImage: NetworkImage(
-              'https://avatars.githubusercontent.com/u/146977511?s=400&u=e4290f06ea6f338ac70d64dc3e42547665b70d30&v=4',
+              'https://media.licdn.com/dms/image/v2/D5603AQHXiQpOqa6ehA/profile-displayphoto-crop_800_800/B56ZfWdtSBHEAI-/0/1751649804822?e=1773273600&v=beta&t=1h8lJJNmucpBVlyuDnKvmLqJt8Omki_eNwaBIgCncDI',
             ),
           ),
 
