@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../layouts/main_layout.dart';
 import '../core/constants.dart'; 
 
@@ -69,11 +70,13 @@ class AboutSection extends StatelessWidget {
                 ),
                 SizedBox(height: 12),
                 Text(
-                  'I am a Computer Science graduate with a strong focus on Flutter-based application development. '
-                  'I have experience building responsive, user-centric applications with attention to clean architecture and maintainable code. '
-                  'My work involves integrating APIs, managing application state, and designing intuitive user interfaces. '
+                  'A Computer Science graduate with a strong focus on Flutter-based application development, I have experience building responsive, user-centric applications with attention to clean architecture and maintainable code. '
+                  'My work includes integrating REST APIs, managing application state, and designing intuitive user interfaces. '
                   'I enjoy solving practical problems through technology and continuously improving my skills through hands-on projects. '
-                  'I am particularly interested in cross-platform development and modern application workflows.',
+                  'Particularly interested in cross-platform development and modern application workflows, I strive to build efficient and scalable solutions. '
+                  'Currently conducting thesis research in the field of machine learning, further expanding my understanding of intelligent systems and data-driven solutions.'
+                  ' '
+                  'You can download my CV to see more details about my projects, skills, and experience from below.',
                   style: TextStyle(
                     fontSize: 18,
                     height: 1.5,
@@ -86,6 +89,44 @@ class AboutSection extends StatelessWidget {
 
           const SizedBox(height: 32),
 
+
+          // Download CV button
+          Center(
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.download, size: 20),
+              label: const Text(
+                'Download My CV',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+              onPressed: () async {
+                // Use url_launcher to open the PDF
+                final Uri url = Uri.parse(
+                  'assets/pdf/Naimur_Rahman_Resume.pdf', // relative path
+                );
+
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(
+                    url,
+                    mode: LaunchMode.externalApplication, // opens in browser/PDF viewer
+                  );
+                } else {
+                  // Fallback: show error
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Could not open CV')),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                backgroundColor: AppConstants.primaryColor,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 4,
+              ),
+            ),
+          ),
+
+const SizedBox(height: 48), // space before next section
           // Certificates Section
           Container(
             padding: const EdgeInsets.all(24),
