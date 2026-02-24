@@ -98,22 +98,12 @@ class AboutSection extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               onPressed: () async {
-                // Use url_launcher to open the PDF
-                final Uri url = Uri.parse(
-                  'assets/pdf/Naimur_Rahman_Arnab_CV.pdf', // relative path
-                );
+                final Uri url = Uri.base.resolve('assets/pdf/Naimur_Rahman_Resume.pdf');
 
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(
-                    url,
-                    mode: LaunchMode.externalApplication, // opens in browser/PDF viewer
-                  );
-                } else {
-                  // Fallback: show error
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Could not open CV')),
-                  );
-                }
+                await launchUrl(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                );
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
