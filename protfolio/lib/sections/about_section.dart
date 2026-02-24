@@ -100,7 +100,7 @@ class AboutSection extends StatelessWidget {
               onPressed: () async {
                 // Use url_launcher to open the PDF
                 final Uri url = Uri.parse(
-                  'assets/pdf/Naimur_Rahman_Resume.pdf', // relative path
+                  'assets/pdf/Naimur_Rahman_Arnab_CV.pdf', // relative path
                 );
 
                 if (await canLaunchUrl(url)) {
