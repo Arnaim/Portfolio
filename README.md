@@ -1,8 +1,8 @@
-# Naimur Rahman Arnab - Modern Flutter Portfolio
+# Naimur Rahman Arnab - Flutter Portfolio
 
 A professional, high-performance portfolio application built with **Flutter**, featuring a modern Slate & Indigo aesthetic, reactive state management, and seamless Firebase integration.
 
-## 🚀 Key Features
+## Key Features
 
 -   **Modern Visuals:** Glassmorphic UI elements, refined typography, and a sophisticated dark theme.
 -   **Dynamic Animations:** Smooth entry transitions and interactive effects powered by `flutter_animate`.
@@ -11,7 +11,7 @@ A professional, high-performance portfolio application built with **Flutter**, f
 -   **Responsive Design:** Fully optimized for Web, Tablet, and Mobile interfaces.
 -   **Clean Navigation:** Declarative routing implemented with **Go Router**.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 -   **Framework:** [Flutter](https://flutter.dev/) (Web/Mobile)
 -   **State Management:** [Riverpod](https://riverpod.dev/)
@@ -20,7 +20,7 @@ A professional, high-performance portfolio application built with **Flutter**, f
 -   **Backend:** [Firebase](https://firebase.google.com/) (Firestore)
 -   **Version Management:** [FVM](https://fvm.app/)
 
-## 📂 Project Structure
+## Project Structure
 
 -   `lib/core/`: Theme definitions, global constants, and Riverpod providers.
 -   `lib/layouts/`: Main application shell with glassmorphic navigation.
@@ -28,7 +28,7 @@ A professional, high-performance portfolio application built with **Flutter**, f
 -   `lib/widgets/`: Reusable UI components like `ProjectCard` and `SkillChip`.
 -   `lib/router/`: App routing configuration.
 
-## ⚙️ Getting Started
+## Getting Started
 
 This project uses **FVM** to ensure consistent Flutter versions.
 
@@ -37,7 +37,7 @@ This project uses **FVM** to ensure consistent Flutter versions.
 2.  Install [Flutter SDK](https://docs.flutter.dev/get-started/install).
 
 ### Setup
-All commands should be executed within the `protfolio/` directory.
+All commands should be executed within the `portfolio/` directory.
 
 1.  **Install dependencies:**
     ```bash
@@ -54,6 +54,6 @@ All commands should be executed within the `protfolio/` directory.
     fvm flutter build web --release
     ```
 
-## 📝 License
+## License
 
-© 2024 Naimur Rahman Arnab. All rights reserved.
+© 2026 Naimur Rahman Arnab. All rights reserved.
