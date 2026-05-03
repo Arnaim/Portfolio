@@ -23,7 +23,7 @@ class ProjectsSection extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               const Text(
-                'A selection of apps I\'ve built with Flutter',
+                'A selection of apps I\'ve built with Flutter and other technologies.',
                 style: TextStyle(fontSize: 18, height: 1.5),
               ),
               const SizedBox(height: 64),
