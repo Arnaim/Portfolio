@@ -4,11 +4,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 Widget buildContactInfo() {
   return Container(
-    padding: const EdgeInsets.all(24),
+    padding: const EdgeInsets.all(32),
     decoration: BoxDecoration(
-      color: AppConstants.secondaryColor,            
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: Colors.grey[300]!), 
+      color: AppConstants.surfaceColor,            
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: AppConstants.tertiaryColor.withValues(alpha: 0.3)), 
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -17,22 +17,30 @@ Widget buildContactInfo() {
           'Direct Contact',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppConstants.textPrimary),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 32),
         _buildContactItem(
           icon: Icons.email,
-          text: 'Mail me',
-          onTap: () => launchUrl(Uri.parse('mailto:cookynaimur@gmail.com')),
+          text: 'cookynaimur@gmail.com',
+          onTap: () async {
+            final Uri emailLaunchUri = Uri(
+              scheme: 'mailto',
+              path: 'cookynaimur@gmail.com',
+            );
+            if (await canLaunchUrl(emailLaunchUri)) {
+              await launchUrl(emailLaunchUri, mode: LaunchMode.externalApplication);
+            }
+          },
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
         _buildContactItem(
           icon: Icons.link,
-          text: 'My Github',
+          text: 'GitHub Profile',
           onTap: () => launchUrl(Uri.parse('https://github.com/Arnaim')),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
         _buildContactItem(
           icon: Icons.link,
-          text: 'My LinkedIn',
+          text: 'LinkedIn Profile',
           onTap: () => launchUrl(Uri.parse('https://www.linkedin.com/in/naimurrahmanarnab')),
         ),
       ],

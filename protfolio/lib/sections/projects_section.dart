@@ -13,7 +13,7 @@ class ProjectsSection extends ConsumerWidget {
     
     return SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.only(top: 120, left: 24, right: 24, bottom: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

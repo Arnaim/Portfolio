@@ -14,5 +14,6 @@ class AppConstants {
 
   static const double pagePadding = 24.0;
   static const String name = "Naimur Rahman Arnab";
-  static const String title = "Flutter Developer";
+  static const String title = "Software Engineer";
+  static const String tagline = "Transforming complex problems into elegant, scalable digital solutions.";
 }

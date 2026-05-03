@@ -63,10 +63,11 @@ class HomeSection extends ConsumerWidget {
                       const SizedBox(height: 16),
                       
                       Text(
-                        'Junior Flutter Developer • Crafting clean, performant mobile & web apps',
+                        AppConstants.tagline,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: isDesktop ? 24 : 18,
                           color: AppConstants.textSecondary,
+                          fontStyle: FontStyle.italic,
                         ),
                         textAlign: TextAlign.center,
                       ).animate().fadeIn(duration: 600.ms, delay: 400.ms).slideY(begin: 0.2, end: 0),
@@ -83,7 +84,7 @@ class HomeSection extends ConsumerWidget {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         child: const Text(
-                          'See My Projects',
+                          'Explore My Work',
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ).animate().fadeIn(duration: 600.ms, delay: 600.ms).scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1)),
@@ -106,15 +107,14 @@ class HomeSection extends ConsumerWidget {
             crossAxisAlignment: isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center,
             children: [
               Text(
-                'What I Do',
+                'Bridging Code & Impact',
                 style: Theme.of(context).textTheme.headlineMedium,
               ).animate(onPlay: (controller) => controller.repeat()).shimmer(duration: 2000.ms, color: AppConstants.accentColor.withValues(alpha: 0.3)),
               
               const SizedBox(height: 24),
               
               Text(
-                'I build cross-platform mobile applications and responsive web experiences using Flutter. '
-                'Focused on clean architecture, performance, beautiful UI/UX, and delivering real value.',
+                'I am a Software Engineer passionate about crafting seamless digital experiences. While I specialize in Flutter for high-performance cross-platform apps, I am equally at home working with backend systems, RESTful architectures, and data-driven solutions. I don\'t just write code; I build tools that solve real-world problems.',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: isDesktop ? TextAlign.left : TextAlign.center,
               ),

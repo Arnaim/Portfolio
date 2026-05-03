@@ -17,8 +17,14 @@ class FooterLink extends StatelessWidget {
     return TextButton(
       onPressed: () async {
         final Uri uri = Uri.parse(url);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        if (url.startsWith('mailto:')) {
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(uri, mode: LaunchMode.externalApplication);
+          }
+        } else {
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(uri, mode: LaunchMode.externalApplication);
+          }
         }
       },
       style: TextButton.styleFrom(

@@ -66,9 +66,11 @@ void _submitForm() async {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: isDesktop ? 80 : 24,
-          vertical: 40,
+        padding: EdgeInsets.only(
+          top: 120,
+          left: isDesktop ? 80 : 24,
+          right: isDesktop ? 80 : 24,
+          bottom: 40,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

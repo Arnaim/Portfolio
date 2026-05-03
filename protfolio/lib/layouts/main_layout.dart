@@ -16,6 +16,7 @@ class MainLayout extends StatelessWidget {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: AppConstants.backgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
         child: ClipRRect(
