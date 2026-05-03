@@ -98,12 +98,16 @@ class AboutSection extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               onPressed: () async {
-                final Uri url = Uri.base.resolve('assets/pdf/Naimur_Rahman_Arnab_CV.pdf');
+                // Using Uri.base.resolve ensures the path is correct whether 
+                // hosted on a domain, GitHub Pages, or running locally.
+                final Uri url = Uri.base.resolve('Naimur_Rahman_Arnab_CV.pdf');
 
-                await launchUrl(
-                  url,
-                  mode: LaunchMode.externalApplication,
-                );
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(
+                    url,
+                    mode: LaunchMode.externalApplication,
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
