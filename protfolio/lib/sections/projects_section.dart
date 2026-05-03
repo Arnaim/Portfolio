@@ -1,13 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:protfolio/core/providers.dart';
 import 'package:protfolio/widgets/ProjectCard.dart';
 
-class ProjectsSection extends StatelessWidget {
+class ProjectsSection extends ConsumerWidget {
   const ProjectsSection({super.key});
 
 
 @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final projectsAsync = ref.watch(projectsStreamProvider);
     
     return SingleChildScrollView(
         child: Padding(
@@ -33,29 +35,8 @@ class ProjectsSection extends StatelessWidget {
               crossAxisCount = 3;
             } else if (constraints.maxWidth > 600) crossAxisCount = 2;
 
-            return StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('projects')
-                  .snapshots(),
-              
-              builder: (context, snapshot) {
-                print('Firestore stream status: ${snapshot.connectionState}');
-                print('Has data: ${snapshot.hasData}');
-                print('Error: ${snapshot.error}');
-                print('Number of docs: ${snapshot.data?.docs.length ?? 0}');
-                // Loading state
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                // Error state
-                if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
-
-                final projects = snapshot.data?.docs ?? [];
-
-                // Empty state
+            return projectsAsync.when(
+              data: (projects) {
                 if (projects.isEmpty) {
                   return const Center(child: Text('No projects added yet'));
                 }
@@ -71,8 +52,7 @@ class ProjectsSection extends StatelessWidget {
                   ),
                   itemCount: projects.length,
                   itemBuilder: (context, index) {
-                    final doc = projects[index];
-                    final data = doc.data() as Map<String, dynamic>;
+                    final data = projects[index];
 
                     return buildProjectCard(
                       index,
@@ -84,6 +64,8 @@ class ProjectsSection extends StatelessWidget {
                   },
                 );
               },
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (err, stack) => Center(child: Text('Error: $err')),
             );
           },
         )
