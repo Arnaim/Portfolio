@@ -63,8 +63,14 @@ const workSchema = {
 <BaseLayout title={title} description={description} path={`/projects/${project.slug}`} ogType="article" jsonLd={[workSchema]}>
   <article>
     <!-- Header: editorial masthead -->
-    <header class="border-b-2 border-ink">
-      <div class="container-ed py-14 md:py-20">
+    <header class="relative overflow-hidden border-b-2 border-ink">
+      <!-- Decorative whitespace accents (hidden from AT) -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+        <div class="mark-plus absolute top-10 right-[4%] h-6 w-6 text-vermilion/60"></div>
+        <div class="bg-dots-ink absolute right-[2%] bottom-6 h-16 w-40 opacity-15"></div>
+        <div class="absolute top-[38%] left-[-2.5rem] h-24 w-24 rounded-full border-[3px] border-ultra/25"></div>
+      </div>
+      <div class="container-ed relative py-14 md:py-20">
         <nav aria-label="Breadcrumb" class="label-mono mb-8">
           <a href="/projects" class="hover:text-vermilion-deep">Projects</a>
           <span aria-hidden="true" class="mx-2">/</span>
@@ -114,7 +120,13 @@ const workSchema = {
     }
 
     <!-- Body -->
-    <div class="container-ed grid gap-14 py-16 md:grid-cols-12 md:py-24">
+    <div class="container-ed relative grid gap-14 py-16 md:grid-cols-12 md:py-24">
+      <!-- Decorative whitespace accents (hidden from AT) -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+        <div class="mark-plus absolute top-[8%] right-[2%] hidden h-5 w-5 text-ink/40 lg:block"></div>
+        <div class="absolute bottom-[18%] right-[-1.25rem] h-20 w-20 rotate-12 border-[3px] border-vermilion/30"></div>
+        <div class="mark-plus absolute bottom-[4%] left-[2%] h-6 w-6 text-ultra/50"></div>
+      </div>
       <!-- Meta sidebar -->
       <aside class="md:col-span-4">
         <dl class="space-y-6 border-t-2 border-ink pt-6">
