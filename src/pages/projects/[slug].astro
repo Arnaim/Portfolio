@@ -1,0 +1,280 @@
+---
+/**
+ * Project detail page — a mini editorial case study.
+ * SSR on every request: new Firestore docs get URLs instantly, deleted docs 404.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectImage from '../../components/ProjectImage.astro';
+import { getProjects, getProjectBySlug, projectHref } from '../../lib/projects';
+import { SITE } from '../../types/site';
+import type { Project } from '../../types/project';
+
+export const prerender = false; // server-rendered on demand (works in dev AND with the Netlify adapter)
+
+const { slug } = Astro.params;
+let project: Project | undefined;
+
+if (slug) {
+  try {
+    project = await getProjectBySlug(slug);
+  } catch {
+    /* handled below — renders 404 */
+  }
+}
+
+if (!project) {
+  // Renders the 404 page with correct HTTP status, keeping the original URL.
+  return Astro.rewrite('/404');
+}
+
+const num = (projects: Project[], p: Project) => {
+  const idx = projects.findIndex((x) => x.id === p.id);
+  return idx === -1 ? '00' : String(idx + 1).padStart(2, '0');
+};
+
+let all: Project[] = [];
+try {
+  all = await getProjects(); // cached — no second Firestore round-trip
+} catch {
+  /* related section simply omits itself */
+}
+const n = all.length ? num(all, project) : '00';
+const related = all.filter((p) => p.id !== project!.id).slice(0, 3);
+
+const title = `${project.title} — ${SITE.name}`;
+const description = project.description.slice(0, 155);
+const heroAlt = `${project.title} — project preview`;
+
+const workSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.title,
+  description: project.description,
+  url: Astro.url.toString(),
+  image: project.imageUrl || undefined,
+  author: { '@type': 'Person', name: SITE.name, url: Astro.site?.toString() },
+  creator: { '@type': 'Person', name: SITE.name },
+  ...(project.githubUrl ? { codeRepository: project.githubUrl } : {}),
+  ...(project.liveUrl ? { subjectOf: project.liveUrl } : {}),
+  ...(project.techStack?.length ? { keywords: project.techStack.join(', ') } : {}),
+};
+---
+
+<BaseLayout title={title} description={description} path={`/projects/${project.slug}`} ogType="article" jsonLd={[workSchema]}>
+  <article>
+    <!-- Header: editorial masthead -->
+    <header class="border-b-2 border-ink">
+      <div class="container-ed py-14 md:py-20">
+        <nav aria-label="Breadcrumb" class="label-mono mb-8">
+          <a href="/projects" class="hover:text-vermilion-deep">Projects</a>
+          <span aria-hidden="true" class="mx-2">/</span>
+          <span aria-current="page">{project.title}</span>
+        </nav>
+
+        <p class="label-mono">Project {n}{project.year ? ` — ${project.year}` : ''}{project.category ? ` — ${project.category}` : ''}</p>
+        <h1 class="mt-4 max-w-5xl font-display text-huge font-black uppercase">{project.title}</h1>
+        <p class="mt-5 max-w-2xl text-lg text-ink-soft">{project.description}</p>
+
+        {
+          (project.githubUrl || project.liveUrl) && (
+            <div class="mt-8 flex flex-wrap gap-4">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  rel="noopener noreferrer"
+                  class="border-2 border-ink bg-vermilion px-6 py-3 font-mono text-sm font-bold tracking-widest text-paper uppercase shadow-block hover:-translate-x-0.5 hover:-translate-y-0.5"
+                >
+                  Live demo ↗
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  rel="noopener noreferrer"
+                  class="border-2 border-ink bg-paper px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase shadow-block hover:-translate-x-0.5 hover:-translate-y-0.5"
+                >
+                  Source ↗
+                </a>
+              )}
+            </div>
+          )
+        }
+      </div>
+    </header>
+
+    <!-- Hero visual -->
+    {
+      project.imageUrl && (
+        <div class="container-ed pt-12 md:pt-16">
+          <ProjectImage src={project.imageUrl} alt={heroAlt} aspect="aspect-[16/10]" eager />
+        </div>
+      )
+    }
+
+    <!-- Body -->
+    <div class="container-ed grid gap-14 py-16 md:grid-cols-12 md:py-24">
+      <!-- Meta sidebar -->
+      <aside class="md:col-span-4">
+        <dl class="space-y-6 border-t-2 border-ink pt-6">
+          <div>
+            <dt class="label-mono">Role</dt>
+            <dd class="mt-1 font-display text-lg font-bold">{project.role ?? 'Design & development'}</dd>
+          </div>
+          {
+            project.year && (
+              <div>
+                <dt class="label-mono">Year</dt>
+                <dd class="mt-1 font-display text-lg font-bold">{project.year}</dd>
+              </div>
+            )
+          }
+          {
+            project.status && (
+              <div>
+                <dt class="label-mono">Status</dt>
+                <dd class="mt-1 font-display text-lg font-bold">{project.status}</dd>
+              </div>
+            )
+          }
+          {
+            project.techStack && project.techStack.length > 0 && (
+              <div>
+                <dt class="label-mono">Stack</dt>
+                <dd class="mt-2 flex flex-wrap gap-2">
+                  {project.techStack.map((t) => (
+                    <span class="border border-ink px-2.5 py-1 font-mono text-xs">{t}</span>
+                  ))}
+                </dd>
+              </div>
+            )
+          }
+          {
+            project.githubUrl && (
+              <div>
+                <dt class="label-mono">Code</dt>
+                <dd class="mt-1">
+                  <a class="break-all underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep" href={project.githubUrl} rel="noopener noreferrer">
+                    {project.githubUrl.replace(/^https?:\/\/(www\.)?/, '')}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+      </aside>
+
+      <!-- Narrative -->
+      <div class="md:col-span-8">
+        {
+          project.problem && (
+            <section class="mb-12">
+              <h2 class="font-display text-big font-black uppercase">
+                The problem<span class="text-vermilion" aria-hidden="true">.</span>
+              </h2>
+              <p class="mt-4 max-w-prose text-lg text-ink-soft">{project.problem}</p>
+            </section>
+          )
+        }
+
+        <section class="mb-12">
+          <h2 class="font-display text-big font-black uppercase">
+            Overview<span class="text-vermilion" aria-hidden="true">.</span>
+          </h2>
+          <p class="mt-4 max-w-prose text-lg text-ink-soft">{project.longDescription ?? project.description}</p>
+        </section>
+
+        {
+          project.solution && (
+            <section class="mb-12">
+              <h2 class="font-display text-big font-black uppercase">
+                The build<span class="text-vermilion" aria-hidden="true">.</span>
+              </h2>
+              <p class="mt-4 max-w-prose text-lg text-ink-soft">{project.solution}</p>
+            </section>
+          )
+        }
+
+        {
+          project.features && project.features.length > 0 && (
+            <section class="mb-12">
+              <h2 class="font-display text-big font-black uppercase">
+                Key features<span class="text-vermilion" aria-hidden="true">.</span>
+              </h2>
+              <ul class="mt-5 max-w-prose space-y-3">
+                {project.features.map((f) => (
+                  <li class="flex items-baseline gap-3 border-b border-ink/20 pb-2">
+                    <span aria-hidden="true" class="mt-1.5 inline-block h-2.5 w-2.5 shrink-0 bg-ultra" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          project.challenges && project.challenges.length > 0 && (
+            <section class="mb-12">
+              <h2 class="font-display text-big font-black uppercase">
+                Challenges<span class="text-vermilion" aria-hidden="true">.</span>
+              </h2>
+              <ul class="mt-5 max-w-prose list-none space-y-3">
+                {project.challenges.map((c) => (
+                  <li class="border-l-4 border-vermilion pl-4">{c}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          project.results && project.results.length > 0 && (
+            <section class="mb-12">
+              <h2 class="font-display text-big font-black uppercase">
+                Results<span class="text-vermilion" aria-hidden="true">.</span>
+              </h2>
+              <ul class="mt-5 max-w-prose list-none space-y-3">
+                {project.results.map((r) => (
+                  <li class="border-l-4 border-ultra pl-4">{r}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Gallery (only real screenshots — no fake galleries) -->
+    {
+      project.images && project.images.length > 0 && (
+        <section aria-label="Screenshots" class="border-y-2 border-ink bg-paper-deep/50">
+          <div class="container-ed grid gap-8 py-14 sm:grid-cols-2">
+            {project.images.map((img, i) => (
+              <ProjectImage src={img} alt={`${project!.title} screenshot ${i + 1}`} aspect="aspect-[4/3]" />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Related projects -->
+    {
+      related.length > 0 && (
+        <nav aria-label="More projects" class="container-ed py-16 md:py-20">
+          <h2 class="font-display text-big font-black uppercase">More work</h2>
+          <ul class="mt-8 grid gap-8 md:grid-cols-3">
+            {related.map((p) => (
+              <li>
+                <a href={projectHref(p)} class="group block">
+                  <ProjectImage src={p.imageUrl} alt="" aspect="aspect-[16/10]" />
+                  <p class="label-mono mt-3">{p.category ?? 'Project'}</p>
+                  <p class="mt-1 font-display text-xl font-black uppercase group-hover:text-vermilion-deep">{p.title}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+  </article>
+</BaseLayout>

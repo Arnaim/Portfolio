@@ -1,0 +1,52 @@
+---
+/**
+ * Project image with graceful degradation:
+ * - lazy + async decoding for below-fold images
+ * - explicit aspect-ratio so a broken/slow image never shifts layout
+ * - geometric placeholder if the URL is empty OR the image fails to load
+ */
+interface Props {
+  src: string;
+  alt: string;
+  aspect?: string; // Tailwind arbitrary aspect, e.g. 'aspect-[4/3]'
+  eager?: boolean;
+  class?: string;
+}
+
+const { src, alt, aspect = 'aspect-[4/3]', eager = false, class: className = '' } = Astro.props;
+const hasSrc = src.trim() !== '';
+---
+
+<figure class:list={['relative overflow-hidden border-2 border-ink bg-paper-deep', aspect, className]} data-img-frame>
+  {
+    hasSrc ? (
+      <img
+        src={src}
+        alt={alt}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        class="h-full w-full object-cover"
+        onerror="this.closest('[data-img-frame]')?.classList.add('img-failed')"
+      />
+    ) : null
+  }
+  <!-- Fallback: geometric composition with the first letter (also shown on load error) -->
+  <div aria-hidden="true" class:list={['fallback absolute inset-0 items-center justify-center bg-ultra-soft', hasSrc ? 'hidden' : 'flex']}>
+    <svg viewBox="0 0 100 100" class="absolute inset-0 h-full w-full">
+      <circle cx="78" cy="24" r="26" fill="#e2492f" opacity="0.85" />
+      <rect x="4" y="58" width="34" height="34" fill="#2238c8" opacity="0.9" />
+      <path d="M52 96 66 68 80 96Z" fill="#1c1a17" />
+      <line x1="0" y1="52" x2="100" y2="46" stroke="#1c1a17" stroke-width="1.4" />
+    </svg>
+  </div>
+</figure>
+
+<style>
+  /* When the img errors, hide it and reveal the geometric fallback. */
+  :global([data-img-frame].img-failed img) {
+    display: none;
+  }
+  :global([data-img-frame].img-failed .fallback) {
+    display: flex !important;
+  }
+</style>

@@ -1,0 +1,181 @@
+/* ============================================================
+   ARNAB.PORTFOLIO — Design System
+   Editorial / Neo-Memphis / riso-print inspired identity.
+
+   Palette: warm paper + dark ink + vermilion + ultramarine.
+   Deliberately NOT the old navy/purple developer aesthetic.
+   ============================================================ */
+
+@import 'tailwindcss';
+
+@theme {
+  /* ---- color tokens (all pairs checked for WCAG contrast) ---- */
+  --color-paper: #f6f2ea; /* warm paper — main background */
+  --color-paper-deep: #ece6d8; /* recessed paper tone */
+  --color-ink: #1c1a17; /* near-black warm ink — primary text */
+  --color-ink-soft: #57534a; /* secondary text (AA on paper) */
+  --color-vermilion: #e2492f; /* primary accent (AA large text on paper) */
+  --color-vermilion-deep: #b93320; /* vermilion for small text on paper */
+  --color-ultra: #2238c8; /* secondary accent — ultramarine */
+  --color-ultra-soft: #e3e4f2; /* ultramarine tint surface */
+  --color-vermilion-soft: #f8ddd5; /* vermilion tint surface */
+
+  /* ---- type families ---- */
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+
+  /* ---- editorial type scale ---- */
+  --text-mega: clamp(3.2rem, 11vw, 9.5rem);
+  --text-mega--line-height: 0.92;
+  --text-huge: clamp(2.4rem, 6vw, 4.75rem);
+  --text-huge--line-height: 0.98;
+  --text-big: clamp(1.7rem, 3.6vw, 2.9rem);
+  --text-big--line-height: 1.05;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip; /* geometric art must never cause horizontal scroll */
+}
+
+::selection {
+  background: var(--color-vermilion);
+  color: var(--color-paper);
+}
+
+/* Visible, on-brand focus for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--color-ultra);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   UTILITIES — editorial building blocks
+   ============================================================ */
+
+@utility container-ed {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Uppercase mono metadata label, e.g. "WORK — 01" */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+/* Thin rule with ink color */
+@utility rule-ink {
+  border-top: 2px solid var(--color-ink);
+}
+
+/* Hard offset shadow — print-block feel, no soft drop shadows */
+@utility shadow-block {
+  box-shadow: 6px 6px 0 0 var(--color-ink);
+}
+@utility shadow-block-vermilion {
+  box-shadow: 6px 6px 0 0 var(--color-vermilion);
+}
+
+/* Outlined display text (hero) */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-ink);
+}
+
+/* ============================================================
+   MOTION — restrained; fully disabled under reduced motion
+   ============================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ticker-track {
+    animation: none !important;
+  }
+  .shape-spin,
+  .shape-drift {
+    animation: none !important;
+  }
+}
+
+/* Ticker — slow, pauses on hover, stops for reduced motion */
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker 36s linear infinite;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Geometric accents */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.shape-spin {
+  animation: spin-slow 40s linear infinite;
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(6px, -8px);
+  }
+}
+.shape-drift {
+  animation: drift 9s ease-in-out infinite;
+}

@@ -1,0 +1,21 @@
+---
+/** Slow marquee strip — pure CSS, pauses on hover, disabled under reduced motion. */
+interface Props {
+  items: string[];
+}
+const { items } = Astro.props;
+// Duplicate content so -50% translate loops seamlessly.
+const loop = [...items, ...items];
+---
+
+<div class="ticker overflow-hidden border-y-2 border-ink bg-ink py-3 text-paper" aria-hidden="true">
+  <div class="ticker-track font-mono text-sm tracking-[0.2em] uppercase">
+    {
+      loop.map((item) => (
+        <span class="mx-6 flex items-center gap-6">
+          {item} <span class="text-vermilion">✳</span>
+        </span>
+      ))
+    }
+  </div>
+</div>

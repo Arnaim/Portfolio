@@ -1,0 +1,45 @@
+---
+/** All projects — full editorial index. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectShowcase from '../../components/ProjectShowcase.astro';
+import { getProjects } from '../../lib/projects';
+import { SITE } from '../../types/site';
+
+let projects: Awaited<ReturnType<typeof getProjects>> = [];
+let loadError = false;
+try {
+  projects = await getProjects();
+} catch {
+  loadError = true;
+}
+---
+
+<BaseLayout
+  title={`Projects — ${SITE.name}`}
+  description={`All projects by ${SITE.name}: Flutter apps, AI tools, web experiments. Managed in Firestore, served as real HTML.`}
+  path="/projects"
+>
+  <section aria-labelledby="projects-heading" class="border-b-2 border-ink">
+    <div class="container-ed py-16 md:py-24">
+      <p class="label-mono">Complete index</p>
+      <h1 id="projects-heading" class="mt-3 font-display text-huge font-black uppercase">
+        Projects<span aria-hidden="true" class="text-vermilion">.</span>
+      </h1>
+      <p class="mt-4 max-w-xl text-ink-soft">
+        {projects.length > 0
+          ? `${projects.length} project${projects.length === 1 ? '' : 's'} — apps, tools and experiments. Each one has a case-study page.`
+          : 'An index of apps, tools and experiments.'}
+      </p>
+    </div>
+  </section>
+
+  {loadError && (
+    <div class="container-ed pt-10" role="status">
+      <p class="border-2 border-vermilion bg-vermilion-soft px-5 py-4 text-sm">
+        The project index is temporarily unavailable — please try again in a minute.
+      </p>
+    </div>
+  )}
+
+  <ProjectShowcase projects={projects} />
+</BaseLayout>

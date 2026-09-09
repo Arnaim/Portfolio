@@ -1,0 +1,65 @@
+---
+/** Homepage: editorial composition — hero → ticker → work → about → skills → contact. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Ticker from '../components/Ticker.astro';
+import ProjectShowcase from '../components/ProjectShowcase.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import ContactCta from '../components/ContactCta.astro';
+import { getProjects } from '../lib/projects';
+import { SITE_TITLE, SITE_URL } from '../lib/site';
+
+// SSR: fetch projects on the server (60s in-memory cache; CDN caches output).
+let projects: Awaited<ReturnType<typeof getProjects>> = [];
+let loadError = false;
+try {
+  projects = await getProjects();
+} catch {
+  loadError = true; // graceful degradation — homepage still renders
+}
+
+const tickerItems = ['Flutter', 'AI Integration', 'Web', 'REST APIs', 'Firebase', 'Dart', 'Python', 'Open Source'];
+---
+
+<BaseLayout
+  title={SITE_TITLE}
+  description="Portfolio of Naimur Rahman Arnab — software developer building cross-platform Flutter apps, AI-assisted tools and web projects. Selected work, about, and contact."
+  path="/"
+>
+  <Hero />
+
+  <Ticker items={tickerItems} />
+
+  {loadError && (
+    <div class="container-ed pt-10" role="status">
+      <p class="border-2 border-vermilion bg-vermilion-soft px-5 py-4 text-sm">
+        Heads up: the project index is temporarily unavailable. Everything else on this page is
+        unaffected — please check back in a minute.
+      </p>
+    </div>
+  )}
+
+  <ProjectShowcase projects={projects.slice(0, 6)} withViewAll={projects.length > 0} />
+
+  <About />
+
+  <Skills />
+
+  <ContactCta />
+
+  <!-- JSON-LD for the work collection (only when projects loaded) -->
+  {projects.length > 0 && (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Selected projects',
+      itemListElement: projects.slice(0, 6).map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: p.title,
+        url: `${SITE_URL}/projects/${p.slug}`,
+      })),
+    })} />
+  )}
+</BaseLayout>

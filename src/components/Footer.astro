@@ -1,0 +1,37 @@
+---
+/** Editorial footer: oversized wordmark, links, colophon. */
+import { SITE } from '../types/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t-2 border-ink bg-ink text-paper">
+  <div class="container-ed py-16">
+    <div class="grid gap-12 md:grid-cols-[1fr_auto]">
+      <div>
+        <p class="label-mono !text-paper/60">Colophon</p>
+        <p class="mt-3 max-w-md font-display text-2xl leading-tight font-black uppercase">
+          Designed like a print magazine.<br />
+          Built like a web app.
+        </p>
+        <p class="mt-4 max-w-md text-sm text-paper/70">
+          Astro + Firestore + Netlify. Content is managed in Firestore and served as real HTML —
+          no client-side rendering required.
+        </p>
+      </div>
+
+      <nav aria-label="Footer" class="flex flex-col gap-3 md:items-end">
+        <p class="label-mono !text-paper/60">Elsewhere</p>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.github} rel="me noopener">GitHub ↗</a>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.linkedin} rel="me noopener">LinkedIn ↗</a>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={`mailto:${SITE.email}`}>Email ↗</a>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.cvPath} download>CV ↓</a>
+      </nav>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-2 border-t border-paper/20 pt-6 text-sm text-paper/60 md:flex-row md:items-center md:justify-between">
+      <p>© {year} {SITE.name}. All rights reserved.</p>
+      <p class="font-mono text-xs tracking-wider uppercase">Set in Archivo · Inter · Space Mono</p>
+    </div>
+  </div>
+</footer>

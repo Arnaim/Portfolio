@@ -1,0 +1,141 @@
+---
+/**
+ * Contact page: direct channels + message form.
+ * The form is progressive enhancement — works without JS, posts to /api/message.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../types/site';
+import { absoluteUrl } from '../lib/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: `Contact — ${SITE.name}`,
+  url: absoluteUrl('/contact'),
+  mainEntity: {
+    '@type': 'Person',
+    name: SITE.name,
+    email: `mailto:${SITE.email}`,
+    sameAs: [SITE.github, SITE.linkedin],
+  },
+};
+---
+
+<BaseLayout
+  title={`Contact — ${SITE.name}`}
+  description={`Get in touch with ${SITE.name} — email, GitHub, LinkedIn, or the message form.`}
+  path="/contact"
+  jsonLd={[schema]}
+>
+  <section aria-labelledby="contact-page-heading" class="border-b-2 border-ink">
+    <div class="container-ed py-16 md:py-24">
+      <p class="label-mono">Say hello</p>
+      <h1 id="contact-page-heading" class="mt-3 font-display text-huge font-black uppercase">
+        Contact<span aria-hidden="true" class="text-vermilion">.</span>
+      </h1>
+      <p class="mt-4 max-w-xl text-lg text-ink-soft">
+        Have a project idea, question, or just want to say hi? I'd love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <div class="container-ed grid gap-16 py-16 md:grid-cols-12 md:py-24">
+    <!-- Form -->
+    <div class="md:col-span-7">
+      <h2 class="font-display text-big font-black uppercase">Send a message<span class="text-ultra" aria-hidden="true">.</span></h2>
+
+      <form
+        method="POST"
+        action="/api/message"
+        class="mt-8 space-y-6"
+        aria-describedby="form-note"
+      >
+        <div>
+          <label for="name" class="label-mono block">Your name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autocomplete="name"
+            class="mt-2 w-full border-2 border-ink bg-paper px-4 py-3 focus:bg-white"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="label-mono block">Your email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            class="mt-2 w-full border-2 border-ink bg-paper px-4 py-3 focus:bg-white"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="label-mono block">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="6"
+            class="mt-2 w-full border-2 border-ink bg-paper px-4 py-3 focus:bg-white"></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="border-2 border-ink bg-vermilion px-8 py-4 font-mono text-sm font-bold tracking-widest text-paper uppercase shadow-block transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+        >
+          Send message →
+        </button>
+
+        <p id="form-note" class="text-sm text-ink-soft">
+          Goes straight to my inbox — replies usually within a day.
+        </p>
+      </form>
+    </div>
+
+    <!-- Direct channels -->
+    <aside class="md:col-span-5">
+      <div class="border-2 border-ink bg-ultra-soft/50 p-8 shadow-block">
+        <h2 class="font-display text-big font-black uppercase">Direct<span class="text-vermilion" aria-hidden="true">.</span></h2>
+
+        <ul class="mt-8 space-y-6">
+          <li>
+            <p class="label-mono">Email</p>
+            <a href={`mailto:${SITE.email}`} class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+              {SITE.email}
+            </a>
+          </li>
+          <li>
+            <p class="label-mono">GitHub</p>
+            <a href={SITE.github} rel="me noopener" class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+              {SITE.githubHandle}
+            </a>
+          </li>
+          <li>
+            <p class="label-mono">LinkedIn</p>
+            <a href={SITE.linkedin} rel="me noopener" class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+              in/naimurrahmanarnab
+            </a>
+          </li>
+          <li>
+            <p class="label-mono">Curriculum vitae</p>
+            <a href={SITE.cvPath} download class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+              Download CV (PDF) ↓
+            </a>
+          </li>
+        </ul>
+
+        <!-- Geometric signature -->
+        <div aria-hidden="true" class="mt-10 flex items-center gap-4">
+          <span class="h-10 w-10 rounded-full bg-vermilion"></span>
+          <span class="h-[3px] flex-1 bg-ink"></span>
+          <svg viewBox="0 0 24 24" class="h-6 w-6 text-ultra"><circle cx="12" cy="12" r="10" fill="currentColor" /></svg>
+        </div>
+      </aside>
+    </aside>
+  </div>
+</BaseLayout>

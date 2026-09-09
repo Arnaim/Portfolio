@@ -1,0 +1,31 @@
+---
+/** 404 — editorial "lost page". Also rendered for invalid project slugs. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../types/site';
+
+export const prerender = false; // server-rendered so Astro.rewrite() can serve it with a real 404 status
+Astro.response.status = 404;
+---
+
+<BaseLayout
+  title={`Page not found — ${SITE.name}`}
+  description="This page does not exist. Head back to the homepage or browse the project index."
+  path="/404"
+>
+  <section class="container-ed flex min-h-[70vh] flex-col justify-center py-20">
+    <p class="label-mono">Error — 404</p>
+    <p class="mt-4 font-display text-mega font-black text-outline uppercase" aria-hidden="true">404</p>
+    <h1 class="mt-2 font-display text-big font-black uppercase">This page went off-grid<span class="text-vermilion" aria-hidden="true">.</span></h1>
+    <p class="mt-4 max-w-md text-ink-soft">
+      The address doesn't match anything here — the project may have been moved or removed.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a href="/" class="border-2 border-ink bg-ink px-6 py-3 font-mono text-sm font-bold tracking-widest text-paper uppercase shadow-block-vermilion hover:-translate-x-0.5 hover:-translate-y-0.5">
+        Home
+      </a>
+      <a href="/projects" class="border-2 border-ink px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase hover:bg-paper-deep">
+        Projects
+      </a>
+    </div>
+  </section>
+</BaseLayout>

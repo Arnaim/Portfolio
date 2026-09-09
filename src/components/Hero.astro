@@ -1,0 +1,76 @@
+---
+/** Art-directed hero: oversized stacked name, geometric composition, no photo background. */
+import { SITE, HERO } from '../types/site';
+---
+
+<section aria-labelledby="hero-name" class="relative overflow-hidden border-b-2 border-ink">
+  <!-- Geometric composition (decorative — hidden from AT) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+    <!-- large ultramarine disc -->
+    <div class="shape-drift absolute -top-24 right-[8%] h-72 w-72 rounded-full bg-ultra-soft md:h-96 md:w-96"></div>
+    <!-- vermilion circle outline -->
+    <div class="shape-spin absolute top-[38%] right-[22%] h-24 w-24 rounded-full border-[6px] border-vermilion md:h-32 md:w-32"></div>
+    <!-- grid of dots, top left -->
+    <svg class="absolute top-10 left-[6%] h-28 w-28 text-ink/25" viewBox="0 0 100 100" fill="currentColor">
+      {
+        Array.from({ length: 36 }).map((_, i) => (
+          <circle cx={10 + (i % 6) * 16} cy={10 + Math.floor(i / 6) * 16} r="2.6" />
+        ))
+      }
+    </svg>
+    <!-- diagonal line -->
+    <div class="absolute bottom-[24%] left-[-2%] h-[3px] w-56 rotate-[-24deg] bg-ink md:w-80"></div>
+    <!-- small solid triangle -->
+    <svg class="absolute right-[40%] bottom-[12%] h-10 w-10 text-vermilion" viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M20 2 38 38 2 38Z" fill="currentColor"></path>
+    </svg>
+  </div>
+
+  <div class="container-ed relative pt-16 pb-20 md:pt-24 md:pb-28">
+    <p class="label-mono flex items-center gap-3">
+      <span aria-hidden="true" class="inline-block h-3 w-3 bg-vermilion"></span>
+      {HERO.index} — {SITE.roleLong}
+    </p>
+
+    <h1 id="hero-name" class="mt-8 font-display font-black uppercase" aria-label={SITE.name}>
+      {
+        SITE.nameParts.map((part, i) => (
+          <span
+            class:list={[
+              'block leading-[0.92] tracking-tight',
+              i === 0 && 'text-mega',
+              i === 1 && 'text-mega text-outline',
+              i === 2 && 'text-mega text-vermilion',
+            ]}
+          >
+            {part}
+          </span>
+        ))
+      }
+    </h1>
+
+    <div class="mt-10 grid gap-8 md:grid-cols-[auto_1fr] md:items-end md:gap-16">
+      <p class="max-w-md font-display text-big font-bold uppercase">
+        {HERO.lineTop} <span aria-hidden="true" class="text-ultra">×</span> developer
+      </p>
+      <div class="max-w-xl">
+        <p class="text-lg text-ink-soft">{HERO.intro}</p>
+        <div class="mt-6 flex flex-wrap items-center gap-4">
+          <a
+            href="#work"
+            class="border-2 border-ink bg-vermilion px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase text-paper shadow-block transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-block-vermilion"
+          >
+            See the work
+          </a>
+          <a
+            href={SITE.cvPath}
+            download
+            class="border-2 border-ink bg-paper px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase shadow-block transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+          >
+            CV ↓
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
