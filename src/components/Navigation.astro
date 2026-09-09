@@ -92,3 +92,13 @@ const isActive = (href: string) => {
     </details>
   </nav>
 </header>
+
+<script>
+  // Close the mobile menu when a link is chosen. Cross-page navigation resets
+  // the <details> anyway, but same-page anchors (e.g. /#work from the homepage)
+  // don't reload — without this the open menu would cover the target section.
+  const menu = document.querySelector('header details');
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) menu.removeAttribute('open');
+  });
+</script>
