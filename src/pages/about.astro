@@ -9,18 +9,22 @@ import { SITE } from '../types/site';
 
 <BaseLayout
   title={`About — ${SITE.name}`}
-  description={`Who is ${SITE.name}: Computer Science graduate, Flutter developer, AI tinkerer. Background, certificates and approach.`}
+  description={`Background, certificates and how I work. Computer Science grad, Flutter developer, ML thesis in progress.`}
   path="/about"
   ogType="profile"
 >
-  <section aria-labelledby="about-page-heading" class="border-b-2 border-ink">
-    <div class="container-ed py-16 md:py-24">
+  <section aria-labelledby="about-page-heading" class="relative overflow-hidden border-b-2 border-ink">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+      <div class="bg-dots-ink absolute top-8 right-[6%] h-20 w-44 opacity-20"></div>
+      <div class="shape-spin absolute -top-12 right-[28%] h-28 w-28 rounded-full border-[5px] border-ultra/50"></div>
+    </div>
+    <div class="container-ed relative py-16 md:py-24">
       <p class="label-mono">Profile</p>
       <h1 id="about-page-heading" class="mt-3 font-display text-huge font-black uppercase">
         About<span aria-hidden="true" class="text-ultra">.</span>
       </h1>
       <p class="mt-4 max-w-xl text-lg text-ink-soft">
-        {SITE.roleLong} — building software end-to-end, from data model to interface.
+        {SITE.roleLong}. I like owning a project from data model to interface.
       </p>
     </div>
   </section>

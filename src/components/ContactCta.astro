@@ -3,19 +3,33 @@
 import { SITE } from '../types/site';
 ---
 
-<section id="contact" aria-labelledby="contact-heading" class="border-t-2 border-ink bg-vermilion text-paper">
-  <div class="container-ed py-20 md:py-28">
+<section id="contact" aria-labelledby="contact-heading" class="relative overflow-hidden border-t-2 border-ink bg-vermilion text-paper">
+  <!-- Decorative composition (hidden from AT) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+    <!-- outlined circles, top right -->
+    <div class="absolute -top-14 right-[10%] h-40 w-40 rounded-full border-[3px] border-paper/50"></div>
+    <div class="absolute top-10 right-[2%] h-24 w-24 rounded-full border-[3px] border-ink/40"></div>
+    <!-- dot field, bottom left -->
+    <div class="bg-dots-paper absolute bottom-10 left-[4%] h-24 w-52 opacity-40"></div>
+    <!-- paper triangle, bottom right -->
+    <svg class="absolute right-[8%] bottom-8 h-10 w-10 text-paper/80" viewBox="0 0 40 40">
+      <path d="M20 2 38 38 2 38Z" fill="currentColor"></path>
+    </svg>
+  </div>
+  <div class="container-ed relative py-20 md:py-28">
     <p class="label-mono !text-paper/70">04 — Contact</p>
     <h2 id="contact-heading" class="mt-3 max-w-4xl font-display text-huge font-black uppercase">
       Let's make something<span aria-hidden="true">.</span>
     </h2>
     <p class="mt-6 max-w-xl text-lg text-paper/85">
-      Have a project idea, a question, or want to say hi? The inbox is open.
+      Got a project in mind, or just want to say hi? The inbox is open.
     </p>
 
     <div class="mt-10 flex flex-wrap items-center gap-4">
       <a
         href={`mailto:${SITE.email}`}
+        target="_blank"
+        rel="noopener noreferrer"
         class="border-2 border-paper bg-paper px-7 py-4 font-mono text-sm font-bold tracking-widest text-ink uppercase shadow-block !shadow-[6px_6px_0_0_#1c1a17] hover:-translate-x-0.5 hover:-translate-y-0.5"
       >
         {SITE.email}

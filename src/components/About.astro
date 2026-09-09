@@ -9,12 +9,22 @@ interface Props {
 const { withCerts = true } = Astro.props;
 ---
 
-<section id="about" aria-labelledby="about-heading" class="border-y-2 border-ink bg-ultra-soft/40">
-  <div class="container-ed grid gap-14 py-20 md:grid-cols-12 md:py-28">
+<section id="about" aria-labelledby="about-heading" class="relative overflow-hidden border-y-2 border-ink bg-ultra-soft/40">
+  <!-- Decorative composition (hidden from AT) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+    <!-- diagonal rule behind the portrait -->
+    <div class="absolute top-[30%] left-[-2%] h-[3px] w-48 -rotate-[24deg] bg-ink/70 md:w-64"></div>
+    <!-- dot field, bottom right -->
+    <div class="bg-dots-ink absolute right-[6%] bottom-10 h-24 w-48 opacity-20"></div>
+    <!-- outline square, top left -->
+    <div class="absolute top-10 left-[2%] h-14 w-14 -rotate-6 border-[3px] border-ultra/60"></div>
+  </div>
+  <div class="container-ed relative grid gap-14 py-20 md:grid-cols-12 md:py-28">
     <!-- Portrait block (geometric framing instead of the old circular avatar) -->
     <div class="md:col-span-4">
       <div class="relative">
         <div aria-hidden="true" class="absolute -top-4 -left-4 h-24 w-24 rounded-full bg-vermilion"></div>
+        <div aria-hidden="true" class="absolute -right-3 -bottom-3 h-16 w-16 rounded-full border-[4px] border-ultra"></div>
         <div class="relative aspect-[4/5] overflow-hidden border-2 border-ink bg-paper-deep shadow-block">
           <img
             src="/profile.jpeg"

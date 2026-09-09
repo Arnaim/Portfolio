@@ -16,18 +16,25 @@ try {
 
 <BaseLayout
   title={`Projects — ${SITE.name}`}
-  description={`All projects by ${SITE.name}: Flutter apps, AI tools, web experiments. Managed in Firestore, served as real HTML.`}
+  description={`All projects by ${SITE.name}: Flutter apps, AI experiments and web things.`}
   path="/projects"
 >
-  <section aria-labelledby="projects-heading" class="border-b-2 border-ink">
-    <div class="container-ed py-16 md:py-24">
+  <section aria-labelledby="projects-heading" class="relative overflow-hidden border-b-2 border-ink">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+      <div class="bg-dots-ink absolute top-10 right-[4%] h-24 w-48 opacity-20"></div>
+      <svg class="absolute top-8 right-[30%] h-9 w-9 text-vermilion" viewBox="0 0 40 40">
+        <path d="M20 2 38 38 2 38Z" fill="currentColor"></path>
+      </svg>
+      <div class="absolute bottom-6 left-[30%] h-14 w-14 rotate-12 border-[3px] border-ink/30"></div>
+    </div>
+    <div class="container-ed relative py-16 md:py-24">
       <p class="label-mono">Complete index</p>
       <h1 id="projects-heading" class="mt-3 font-display text-huge font-black uppercase">
         Projects<span aria-hidden="true" class="text-vermilion">.</span>
       </h1>
       <p class="mt-4 max-w-xl text-ink-soft">
         {projects.length > 0
-          ? `${projects.length} project${projects.length === 1 ? '' : 's'} — apps, tools and experiments. Each one has a case-study page.`
+          ? `${projects.length} project${projects.length === 1 ? '' : 's'}: apps, tools and experiments. Each has a case-study page.`
           : 'An index of apps, tools and experiments.'}
       </p>
     </div>

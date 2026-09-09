@@ -7,9 +7,9 @@ import { SITE, HERO } from '../types/site';
   <!-- Geometric composition (decorative — hidden from AT) -->
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
     <!-- large ultramarine disc -->
-    <div class="shape-drift absolute -top-24 right-[8%] h-72 w-72 rounded-full bg-ultra-soft md:h-96 md:w-96"></div>
+    <div class="shape-drift absolute top-[52%] right-[-6%] h-72 w-72 rounded-full bg-ultra-soft md:top-[40%] md:right-[4%] md:h-96 md:w-96"></div>
     <!-- vermilion circle outline -->
-    <div class="shape-spin absolute top-[38%] right-[22%] h-24 w-24 rounded-full border-[6px] border-vermilion md:h-32 md:w-32"></div>
+    <div class="shape-spin absolute top-[18%] right-[24%] h-24 w-24 rounded-full border-[6px] border-vermilion md:h-32 md:w-32"></div>
     <!-- grid of dots, top left -->
     <svg class="absolute top-10 left-[6%] h-28 w-28 text-ink/25" viewBox="0 0 100 100" fill="currentColor">
       {
@@ -24,12 +24,22 @@ import { SITE, HERO } from '../types/site';
     <svg class="absolute right-[40%] bottom-[12%] h-10 w-10 text-vermilion" viewBox="0 0 40 40" aria-hidden="true">
       <path d="M20 2 38 38 2 38Z" fill="currentColor"></path>
     </svg>
+    <!-- dot field, bottom left -->
+    <div class="bg-dots-ink absolute bottom-6 left-[8%] h-28 w-56 opacity-25"></div>
+    <!-- outline square, bottom right of the fold -->
+    <div class="absolute right-[6%] bottom-[30%] h-16 w-16 rotate-12 border-[3px] border-ultra/70 md:h-20 md:w-20"></div>
+    <!-- registration plus, mid left whitespace -->
+    <div class="mark-plus absolute top-[46%] left-[3%] h-6 w-6 text-ink/50"></div>
+    <!-- registration plus, lower right whitespace -->
+    <div class="mark-plus absolute right-[30%] bottom-[6%] hidden h-5 w-5 text-vermilion/70 md:block"></div>
+    <!-- small semicircle accent, left of the name block -->
+    <div class="absolute bottom-[34%] left-[-14px] h-8 w-16 rounded-l-full border-[3px] border-ink/30 bg-paper md:left-[-20px]"></div>
   </div>
 
   <div class="container-ed relative pt-16 pb-20 md:pt-24 md:pb-28">
     <p class="label-mono flex items-center gap-3">
       <span aria-hidden="true" class="inline-block h-3 w-3 bg-vermilion"></span>
-      {HERO.index} — {SITE.roleLong}
+      {HERO.index} · {SITE.roleLong}
     </p>
 
     <h1 id="hero-name" class="mt-8 font-display font-black uppercase" aria-label={SITE.name}>
@@ -64,6 +74,8 @@ import { SITE, HERO } from '../types/site';
           </a>
           <a
             href={SITE.cvPath}
+            target="_blank"
+            rel="noopener noreferrer"
             download
             class="border-2 border-ink bg-paper px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase shadow-block transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
           >

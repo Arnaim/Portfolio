@@ -11,23 +11,23 @@ export const SITE = {
   cvPath: '/Naimur_Rahman_Arnab_CV.pdf',
   domain: 'naimurrahmanportfolio.netlify.app',
   description:
-    'Naimur Rahman Arnab is a software developer working across Flutter, AI-assisted tools and web — building apps end-to-end, from data model to interface.',
+    'I build Flutter apps end to end, from the data model to the interface, with AI experiments and web work on the side.',
 } as const;
 
 export const ABOUT = {
   heading: 'A developer who ships',
   paragraphs: [
-    'I am a Computer Science graduate focused on Flutter-based application development. I build responsive, user-centric applications with attention to clean architecture and maintainable code.',
-    'My work includes integrating REST APIs, managing application state, and designing intuitive user interfaces. I enjoy solving practical problems through technology and continuously improving my skills through hands-on projects.',
-    'Currently conducting thesis research in machine learning, expanding my understanding of intelligent systems and data-driven solutions. My CV has the full detail — projects, skills, and experience.',
+    "I'm a Computer Science graduate and I build apps with Flutter. I care about clean architecture, mostly because I've had to maintain the messy kind.",
+    'Day to day that means REST API integration, state management and UI work. I learn best by shipping: most of what I know came from building small projects and fixing them when they break.',
+    "Right now I'm working on my thesis in machine learning. My CV has the full rundown of projects, skills and experience.",
   ],
   certs: [
     { title: 'Supervised Machine Learning: Regression & Classification', issuer: 'Coursera' },
     { title: 'Advanced Learning Algorithms', issuer: 'Coursera' },
     { title: 'App Development with Flutter', issuer: 'Ostad' },
-    { title: 'ICPC Asia Dhaka Regional Contest — Contestant', issuer: '2021' },
-    { title: 'ICPC Asia Dhaka Regional Contest — Contestant', issuer: '2023' },
-    { title: 'NASA Space Apps Challenge — Participant', issuer: '2024' },
+    { title: 'ICPC Asia Dhaka Regional Contest (Contestant)', issuer: '2021' },
+    { title: 'ICPC Asia Dhaka Regional Contest (Contestant)', issuer: '2023' },
+    { title: 'NASA Space Apps Challenge (Participant)', issuer: '2024' },
   ],
 } as const;
 
@@ -59,6 +59,6 @@ export const HERO = {
   lineMid: '× Flutter × AI × Web',
   lineBottom: 'Builds things that run.',
   intro:
-    'Computer Science graduate building cross-platform apps with Flutter, wiring them to real backends, and teaching them to think with on-device AI.',
+    'I build cross-platform apps with Flutter, hook them up to real backends, and give some of them on-device AI.',
   index: 'NRA·01',
 } as const;

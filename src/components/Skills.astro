@@ -6,8 +6,19 @@
 import { SKILLS } from '../types/site';
 ---
 
-<section aria-labelledby="skills-heading" class="container-ed py-20 md:py-28">
-  <div class="grid gap-12 md:grid-cols-12">
+<section aria-labelledby="skills-heading" class="relative overflow-hidden border-y-2 border-ink bg-ultra-soft/30 py-20 md:py-28">
+  <!-- Decorative composition (hidden from AT) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+    <!-- circle outline, top right -->
+    <div class="shape-spin absolute -top-10 right-[6%] h-28 w-28 rounded-full border-[5px] border-vermilion/80"></div>
+    <!-- dot field, bottom left -->
+    <div class="bg-dots-ink absolute bottom-8 left-[4%] h-24 w-44 opacity-20"></div>
+    <!-- solid triangle, upper area -->
+    <svg class="absolute top-12 left-[38%] h-8 w-8 text-ultra" viewBox="0 0 40 40">
+      <path d="M20 2 38 38 2 38Z" fill="currentColor"></path>
+    </svg>
+  </div>
+  <div class="relative grid gap-12 md:grid-cols-12">
     <div class="md:col-span-4">
       <p class="label-mono">03 — Capabilities</p>
       <h2 id="skills-heading" class="mt-3 font-display text-huge font-black uppercase">

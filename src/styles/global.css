@@ -105,6 +105,28 @@ body {
   -webkit-text-stroke: 2px var(--color-ink);
 }
 
+/* Repeating dot fields for decorative compositions (ink on paper / paper on color) */
+@utility bg-dots-ink {
+  background-image: radial-gradient(var(--color-ink) 1.2px, transparent 1.3px);
+  background-size: 18px 18px;
+}
+@utility bg-dots-paper {
+  background-image: radial-gradient(var(--color-paper) 1.2px, transparent 1.3px);
+  background-size: 18px 18px;
+}
+
+/* Print registration mark — a plus/crosshair. Size it with h-*/w-*, color it with text-*. */
+@utility mark-plus {
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor);
+  background-size:
+    100% 2px,
+    2px 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* ============================================================
    MOTION — restrained; fully disabled under reduced motion
    ============================================================ */

@@ -27,14 +27,19 @@ const schema = {
   path="/contact"
   jsonLd={[schema]}
 >
-  <section aria-labelledby="contact-page-heading" class="border-b-2 border-ink">
-    <div class="container-ed py-16 md:py-24">
+  <section aria-labelledby="contact-page-heading" class="relative overflow-hidden border-b-2 border-ink">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+      <div class="absolute top-[55%] left-[-2%] h-[3px] w-40 -rotate-[24deg] bg-vermilion md:w-56"></div>
+      <div class="bg-dots-ink absolute top-8 right-[5%] h-20 w-40 opacity-20"></div>
+      <div class="absolute -bottom-8 right-[18%] h-20 w-20 rounded-full border-[4px] border-ultra/50"></div>
+    </div>
+    <div class="container-ed relative py-16 md:py-24">
       <p class="label-mono">Say hello</p>
       <h1 id="contact-page-heading" class="mt-3 font-display text-huge font-black uppercase">
         Contact<span aria-hidden="true" class="text-vermilion">.</span>
       </h1>
       <p class="mt-4 max-w-xl text-lg text-ink-soft">
-        Have a project idea, question, or just want to say hi? I'd love to hear from you.
+        Got a project in mind, or just want to say hi? I'd love to hear from you.
       </p>
     </div>
   </section>
@@ -92,7 +97,7 @@ const schema = {
         </button>
 
         <p id="form-note" class="text-sm text-ink-soft">
-          Goes straight to my inbox — replies usually within a day.
+          Goes straight to my inbox. I usually reply within a day.
         </p>
       </form>
     </div>
@@ -105,25 +110,25 @@ const schema = {
         <ul class="mt-8 space-y-6">
           <li>
             <p class="label-mono">Email</p>
-            <a href={`mailto:${SITE.email}`} class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+            <a href={`mailto:${SITE.email}`} target="_blank" rel="noopener noreferrer" class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
               {SITE.email}
             </a>
           </li>
           <li>
             <p class="label-mono">GitHub</p>
-            <a href={SITE.github} rel="me noopener" class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+            <a href={SITE.github} target="_blank" rel="me noopener noreferrer" class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
               {SITE.githubHandle}
             </a>
           </li>
           <li>
             <p class="label-mono">LinkedIn</p>
-            <a href={SITE.linkedin} rel="me noopener" class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+            <a href={SITE.linkedin} target="_blank" rel="me noopener noreferrer" class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
               in/naimurrahmanarnab
             </a>
           </li>
           <li>
             <p class="label-mono">Curriculum vitae</p>
-            <a href={SITE.cvPath} download class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
+            <a href={SITE.cvPath} target="_blank" rel="noopener noreferrer" download class="mt-1 block font-display text-lg font-bold underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep">
               Download CV (PDF) ↓
             </a>
           </li>

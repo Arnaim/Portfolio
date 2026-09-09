@@ -12,8 +12,16 @@ Astro.response.status = 404;
   description="This page does not exist. Head back to the homepage or browse the project index."
   path="/404"
 >
-  <section class="container-ed flex min-h-[70vh] flex-col justify-center py-20">
-    <p class="label-mono">Error — 404</p>
+  <section class="container-ed relative flex min-h-[70vh] flex-col justify-center overflow-hidden py-20">
+    <!-- Decorative composition (hidden from AT) -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+      <div class="bg-dots-ink absolute top-14 right-[8%] h-24 w-48 opacity-20"></div>
+      <div class="shape-spin absolute -bottom-10 -left-10 h-36 w-36 rounded-full border-[6px] border-vermilion/60"></div>
+      <svg class="absolute top-[30%] right-[30%] h-9 w-9 text-ultra" viewBox="0 0 40 40">
+        <path d="M20 2 38 38 2 38Z" fill="currentColor"></path>
+      </svg>
+    </div>
+    <p class="label-mono relative">Error — 404</p>
     <p class="mt-4 font-display text-mega font-black text-outline uppercase" aria-hidden="true">404</p>
     <h1 class="mt-2 font-display text-big font-black uppercase">This page went off-grid<span class="text-vermilion" aria-hidden="true">.</span></h1>
     <p class="mt-4 max-w-md text-ink-soft">

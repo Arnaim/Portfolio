@@ -5,8 +5,17 @@ import { SITE } from '../types/site';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t-2 border-ink bg-ink text-paper">
-  <div class="container-ed py-16">
+<footer class="relative overflow-hidden border-t-2 border-ink bg-ink text-paper">
+  <!-- Decorative composition (hidden from AT) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+    <!-- dot field, top left -->
+    <div class="bg-dots-paper absolute top-10 left-[3%] h-20 w-44 opacity-25"></div>
+    <!-- outlined circle, right edge (bleeds off) -->
+    <div class="absolute -right-16 bottom-16 h-48 w-48 rounded-full border-[3px] border-paper/20"></div>
+    <!-- vermilion quarter accent, top right -->
+    <div class="absolute top-8 right-[12%] h-3 w-3 rounded-full bg-vermilion"></div>
+  </div>
+  <div class="container-ed relative py-16">
     <div class="grid gap-12 md:grid-cols-[1fr_auto]">
       <div>
         <p class="label-mono !text-paper/60">Colophon</p>
@@ -15,17 +24,17 @@ const year = new Date().getFullYear();
           Built like a web app.
         </p>
         <p class="mt-4 max-w-md text-sm text-paper/70">
-          Astro + Firestore + Netlify. Content is managed in Firestore and served as real HTML —
-          no client-side rendering required.
+          Astro + Firestore + Netlify. Content lives in Firestore and comes out as plain HTML
+          from the server, so there's nothing to wait for on load.
         </p>
       </div>
 
       <nav aria-label="Footer" class="flex flex-col gap-3 md:items-end">
         <p class="label-mono !text-paper/60">Elsewhere</p>
-        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.github} rel="me noopener">GitHub ↗</a>
-        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.linkedin} rel="me noopener">LinkedIn ↗</a>
-        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={`mailto:${SITE.email}`}>Email ↗</a>
-        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.cvPath} download>CV ↓</a>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.github} target="_blank" rel="me noopener noreferrer">GitHub ↗</a>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.linkedin} target="_blank" rel="me noopener noreferrer">LinkedIn ↗</a>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={`mailto:${SITE.email}`} target="_blank" rel="noopener noreferrer">Email ↗</a>
+        <a class="font-display text-lg font-bold underline-offset-4 hover:underline" href={SITE.cvPath} target="_blank" rel="noopener noreferrer" download>CV ↓</a>
       </nav>
     </div>
 

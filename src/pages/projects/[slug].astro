@@ -81,6 +81,7 @@ const workSchema = {
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   class="border-2 border-ink bg-vermilion px-6 py-3 font-mono text-sm font-bold tracking-widest text-paper uppercase shadow-block hover:-translate-x-0.5 hover:-translate-y-0.5"
                 >
@@ -90,6 +91,7 @@ const workSchema = {
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   class="border-2 border-ink bg-paper px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase shadow-block hover:-translate-x-0.5 hover:-translate-y-0.5"
                 >
@@ -153,7 +155,7 @@ const workSchema = {
               <div>
                 <dt class="label-mono">Code</dt>
                 <dd class="mt-1">
-                  <a class="break-all underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep" href={project.githubUrl} rel="noopener noreferrer">
+                  <a class="break-all underline decoration-vermilion decoration-2 underline-offset-4 hover:text-vermilion-deep" href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                     {project.githubUrl.replace(/^https?:\/\/(www\.)?/, '')}
                   </a>
                 </dd>
