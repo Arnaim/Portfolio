@@ -101,8 +101,3 @@ export async function getProjectBySlug(slug: string): Promise<Project | undefine
 export function projectHref(p: Project): string {
   return `/projects/${p.slug}`;
 }
-
-/** All valid slugs — used by sitemap generation and 404 handling. */
-export async function getAllSlugs(): Promise<string[]> {
-  return [...(slugMap(await getProjects())).keys()];
-}

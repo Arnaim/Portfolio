@@ -18,11 +18,9 @@ interface Props {
   ogType?: 'website' | 'article' | 'profile';
   /** Extra JSON-LD blocks to inject after the default WebSite/Person graph. */
   jsonLd?: Record<string, unknown>[];
-  /** Skip the <main> wrapper (pages providing their own landmarks). */
-  bareMain?: boolean;
 }
 
-const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [], bareMain = false } = Astro.props;
+const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [] } = Astro.props;
 
 const canonical = absoluteUrl(path);
 const resolvedOgImage = ogImage.startsWith('http') ? ogImage : absoluteUrl(ogImage);
@@ -97,15 +95,9 @@ const schemaBlocks = [personSchema, websiteSchema, ...jsonLd];
       Skip to content
     </a>
     <Navigation currentPath={Astro.url.pathname} />
-    {
-      bareMain ? (
-        <slot />
-      ) : (
-        <main id="main">
-          <slot />
-        </main>
-      )
-    }
+    <main id="main">
+      <slot />
+    </main>
     <Footer />
     <!-- Progressive enhancement: reveal-on-scroll. Content is fully visible without JS. -->
     <script>

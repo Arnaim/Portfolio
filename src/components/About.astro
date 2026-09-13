@@ -20,18 +20,21 @@ const { withCerts = true } = Astro.props;
     <div class="absolute top-10 left-[2%] h-14 w-14 -rotate-6 border-[3px] border-ultra/60"></div>
   </div>
   <div class="container-ed relative grid gap-14 py-20 md:grid-cols-12 md:py-28">
-    <!-- Portrait block (geometric framing instead of the old circular avatar) -->
+    <!-- Portrait block: circular avatar, fixed size (source is near-square, so a
+         circle crops it cleanly without the upscale blur the 4/5 frame caused) -->
     <div class="md:col-span-4">
-      <div class="relative">
-        <div aria-hidden="true" class="absolute -top-4 -left-4 h-24 w-24 rounded-full bg-vermilion"></div>
-        <div aria-hidden="true" class="absolute -right-3 -bottom-3 h-16 w-16 rounded-full border-[4px] border-ultra"></div>
-        <div class="relative aspect-[4/5] overflow-hidden border-2 border-ink bg-paper-deep shadow-block">
+      <div class="relative w-fit">
+        <div aria-hidden="true" class="absolute -top-3 -left-3 h-20 w-20 rounded-full bg-vermilion"></div>
+        <div aria-hidden="true" class="absolute -right-3 -bottom-3 h-14 w-14 rounded-full border-[4px] border-ultra"></div>
+        <div class="relative h-56 w-56 overflow-hidden rounded-full border-2 border-ink bg-paper-deep shadow-block md:h-64 md:w-64">
           <img
             src="/profile.jpeg"
             alt={`Portrait of ${SITE.name}`}
+            width="256"
+            height="256"
             loading="lazy"
             decoding="async"
-            class="h-full w-full object-cover"
+            class="h-full w-full rounded-full object-cover"
           />
         </div>
         <p class="label-mono mt-4">{SITE.name} — Dhaka, Bangladesh</p>

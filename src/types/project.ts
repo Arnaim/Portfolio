@@ -39,16 +39,3 @@ export interface Project {
   /** Firestore createTime, ISO string — used as a stable sort key. */
   createdAt: string;
 }
-
-export interface SiteProject {
-  project: Project;
-  href: string;
-}
-
-/** Shapes accepted by the contact endpoint. */
-export interface ContactMessage {
-  name: string;
-  email: string;
-  message: string;
-  createdAt: string;
-}

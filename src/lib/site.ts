@@ -10,4 +10,3 @@ export function absoluteUrl(path = '/'): string {
 }
 
 export const SITE_TITLE = `${SITE.name} — ${SITE.role}`;
-export const SITE_TITLE_SHORT = SITE.name;
