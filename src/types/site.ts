@@ -34,13 +34,13 @@ export const ABOUT = {
 /** Skills migrated from the Flutter SkillsSection — grouped the same way. */
 export const SKILLS: { group: string; items: string[] }[] = [
   {
+    // Core dev skills only — no marketing-adjacent items.
     group: 'Development',
     items: [
       'Cross-Platform Mobile Apps',
       'API Integration',
       'Firebase',
       'Basic AI Model Training',
-      'Digital Marketing & SEO',
     ],
   },
   {
@@ -49,9 +49,18 @@ export const SKILLS: { group: string; items: string[] }[] = [
   },
   {
     group: 'Frameworks & Tools',
-    items: ['Flutter', 'Firebase', 'REST APIs', 'Google Workspace Administration'],
+    items: ['Flutter', 'Firebase', 'REST APIs'],
   },
 ];
+
+/** Education — rendered by src/components/Education.astro (homepage, section 03). */
+export const EDUCATION = {
+  university: 'Bangladesh University of Business and Technology',
+  universityShort: 'BUBT',
+  degree: 'B.Sc. in Computer Science and Engineering',
+  years: '2022 – 2026',
+  cgpa: '3.66 / 4.00',
+} as const;
 
 /** Homepage hero lines — editorial composition (replaces the Flutter hero copy). */
 export const HERO = {

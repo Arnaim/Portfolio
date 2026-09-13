@@ -1,0 +1,54 @@
+---
+/**
+ * Education — compact editorial section between About and Capabilities.
+ * Uses the established design system: numbered mono label ("03 — Education"),
+ * ruled dl metadata rows (same treatment as the project detail sidebar), and
+ * display typography. Plain paper band between the two tinted neighbor sections.
+ */
+import { EDUCATION } from '../types/site';
+---
+
+<section id="education" aria-labelledby="education-heading" class="relative overflow-hidden border-b-2 border-ink py-20 md:py-28">
+  <!-- Decorative composition (hidden from AT) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+    <div class="mark-plus absolute top-14 right-[8%] h-5 w-5 text-ink/40"></div>
+    <div class="absolute bottom-10 left-[38%] h-3 w-3 rotate-45 bg-vermilion/50"></div>
+    <div class="bg-dots-ink absolute top-8 left-[2%] h-16 w-32 opacity-15"></div>
+  </div>
+
+  <div class="container-ed relative grid gap-12 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <p class="label-mono">03 — Education</p>
+      <h2 id="education-heading" class="mt-3 font-display text-huge font-black uppercase">
+        Educated<span aria-hidden="true" class="text-vermilion">.</span>
+      </h2>
+      <p class="mt-6 max-w-xs text-ink-soft">
+        The academic footing behind the engineering — computer science fundamentals,
+        algorithms and machine learning.
+      </p>
+    </div>
+
+    <div class="md:col-span-8">
+      <div class="border-t-2 border-ink pt-6">
+        <h3 class="font-display text-big font-black uppercase leading-none">
+          {EDUCATION.degree}
+        </h3>
+        <p class="mt-2 font-mono text-sm tracking-wide">
+          {EDUCATION.university}
+          <span class="label-mono ml-2">({EDUCATION.universityShort})</span>
+        </p>
+
+        <dl class="mt-8 grid gap-6 border-t border-ink/20 pt-6 sm:grid-cols-2">
+          <div>
+            <dt class="label-mono">Years</dt>
+            <dd class="mt-1 font-display text-lg font-bold">{EDUCATION.years}</dd>
+          </div>
+          <div>
+            <dt class="label-mono">CGPA</dt>
+            <dd class="mt-1 font-display text-lg font-bold">{EDUCATION.cgpa}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

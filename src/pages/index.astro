@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import Ticker from '../components/Ticker.astro';
 import ProjectShowcase from '../components/ProjectShowcase.astro';
 import About from '../components/About.astro';
+import Education from '../components/Education.astro';
 import Skills from '../components/Skills.astro';
 import ContactCta from '../components/ContactCta.astro';
 import { getProjects } from '../lib/projects';
@@ -43,6 +44,8 @@ const tickerItems = ['Flutter', 'AI Integration', 'Web', 'REST APIs', 'Firebase'
   <ProjectShowcase projects={projects.slice(0, 6)} withViewAll={projects.length > 0} />
 
   <About />
+
+  <Education />
 
   <Skills />
 
